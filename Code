@@ -1,0 +1,81 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+// ---------- Function template ----------
+template <typename T>
+T maximum(T a, T b) {
+    return (a > b) ? a : b;
+}
+
+template <typename T>
+void swapValues(T &a, T &b) {
+    T temp = a;
+    a = b;
+    b = temp;
+}
+
+// ---------- Class template ----------
+template <typename T>
+class Stack {
+    T arr[10];
+    int top;
+public:
+    Stack() { top = -1; }
+
+    void push(T value) {
+        if (top == 9) {
+            cout << "Stack is full\n";
+            return;
+        }
+        arr[++top] = value;
+    }
+
+    T pop() {
+        return arr[top--];
+    }
+
+    bool isEmpty() {
+        return top == -1;
+    }
+
+    void display() {
+        for (int i = top; i >= 0; i--)
+            cout << arr[i] << " ";
+        cout << "\n";
+    }
+};
+
+int main() {
+    cout << "--- 1. Function template: maximum ---\n";
+    cout << "maximum(10, 25)       = " << maximum(10, 25) << "\n";
+    cout << "maximum(3.5, 1.2)     = " << maximum(3.5, 1.2) << "\n";
+    cout << "maximum('a', 'z')     = " << maximum('a', 'z') << "\n";
+
+    cout << "\n--- 2. Function template: swap ---\n";
+    int x = 1, y = 2;
+    swapValues(x, y);
+    cout << "int:    x = " << x << ", y = " << y << "\n";
+    string s1 = "Hello", s2 = "World";
+    swapValues(s1, s2);
+    cout << "string: s1 = " << s1 << ", s2 = " << s2 << "\n";
+
+    cout << "\n--- 3. Class template: Stack<int> ---\n";
+    Stack<int> si;
+    si.push(10);
+    si.push(20);
+    si.push(30);
+    cout << "Stack elements: ";
+    si.display();
+    cout << "Popped: " << si.pop() << "\n";
+
+    cout << "\n--- 4. Class template: Stack<string> ---\n";
+    Stack<string> ss;
+    ss.push("Python");
+    ss.push("C++");
+    cout << "Stack elements: ";
+    ss.display();
+    cout << "Popped: " << ss.pop() << "\n";
+
+    return 0;
+}
